@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mim</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            font-family: "SolaimanLipi", Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            background: red;
+            position: relative;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+        .gift-lid {
+            width: 220px;
+            height: 50px;
+            background: darkred;
+            position: absolute;
+            top: -25px;
+            left: -10px;
+            transition: 0.5s ease;
+            border-radius: 5px;
+        }
+        .ribbon {
+            width: 100%;
+            height: 20px;
+            background: gold;
+            position: absolute;
+            top: 90px;
+        }
+        .ribbon-vertical {
+            width: 20px;
+            height: 100%;
+            background: gold;
+            position: absolute;
+            left: 90px;
+            top: 0;
+        }
+        .hidden-message {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            margin: 20px;
+        }
+        .hidden-message h1 {
+            color: red;
+            font-size: 30px;
+        }
+        .hidden-message h2 {
+            color: #ff4081;
+            font-size: 24px;
+        }
+        .hidden-message p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .emoji-container {
+            margin-top: 20px;
+        }
+        .emoji-btn {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .like-btn {
+            background: #28a745;
+            color: white;
+        }
+        .dislike-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .like-btn:hover {
+            background: #218838;
+        }
+        .dislike-btn:hover {
+            background: #c82333;
+        }
+        .emoji {
+            font-size: 50px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: emojiFade 1s ease-in-out;
+        }
+        @keyframes emojiFade {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Falling Love Animation */
+        .love-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .love {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gift-box" id="giftBox">
+            <div class="gift-lid"></div>
+            <div class="ribbon"></div>
+            <div class="ribbon-vertical"></div>
+        </div>
+    </div>
+
+    <div class="hidden-message" id="message">
+        <h1>🎉 Happy Birthday Mim 🎉</h1>
+        <h2>❤️ 🌸✨ শুভ জন্মদিন প্রিয় বন্ধু ✨🌸
+ ❤️</h2>
+        <p>আজকের এই সুন্দর দিনে তোমার হাসিটা হোক সূর্যের মতো উজ্জ্বল ☀️,
+তোমার মনটা হোক ফুলের মতো কোমল 🌷,</p>
+        <p>আর তোমার জীবনটা ভরে উঠুক অসীম সুখ,💖
+</p>
+        <p>তুমি শুধু একজন বন্ধু নও,
+তুমি এক অনুভূতি — হাসির মাঝে, কষ্টের পাশে, আর প্রতিটি প্রার্থনায় তুমি আছো 🙏💫
+</p>
+        <p>তোমার জীবনের প্রতিটি মুহূর্ত হোক সাফল্যে ভরা 🌟
+তোমার চোখে যেন সবসময় স্বপ্নের ঝিলিক থাকে 💎
+আর তুমি যেন ঠিক এভাবেই সবার হৃদয়ে ভালোবাসা ছড়িয়ে যাও 💕
+</p>
+        <p>🎂 শুভ জন্মদিন আমার অমূল্য বন্ধু!
+তোমার জীবনটা হোক ঠিক তোমার হাসির মতোই মিষ্টি, রঙিন আর ভালোবাসায় ভরা 🍰🎈
+</p>
+        <p>💝 অনেক ভালোবাসা রইলো... আজ, আগামীকাল আর সারাজীবনের জন্য 💝
+</p>
+        <p>🌼 আমি জানি, আগামী কিছু বছর তোমার অনেক কষ্টে কেটেছে , কিন্তু মনে রেখো, আমি সারাজীবন তোমার জন্য দোয়া করবো 🤲💫
+যেন তোমার জীবনের বাকি পথটা হয় শুধু হাসি, শান্তি আর ভালোবাসায় ভরা 💖</p>
+        <p>❤️
+তুমি যেন সবসময় সুখে থাকো, খুশিতে ভরপুর থাকো, আর সারা জীবন যেন কোনো কষ্ট তোমার কাছে না আসে আমিন 🤲 🌹</p>
+        <p>তুমি যদি কখনো মন খারাপ করো, শুধু আমার কথা মনে করো, আমি চিরকাল তোমার পাশে থাকবো।</p>
+        <p>আমি জানি না আমি কতদিন বাঁচবো, কিন্তু যতদিন বাঁচবো, শুধু তোমার বন্ধুত্বে় বাঁচবো।</p>
+        <p>🥳🎂🎂😚😚🥰🥰🥰🥳🥳🥳🥳😘😘🥰</p>
+        <p>❤️❤️❤️❤️❤️❤️💖💖💖💖💖💖💖💖💖💖</p>
+        <p>🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳❤️❤️💖💖❤️❤️</p>
+        <p>🤩🤩😍😍🥰🥰😘😘🥳🥳🥳😚😚😘🥰🥰🥰🥰🥰🥰</p>
+        <p>🥰🥰🥰😘😘😘🤩🤩🎂🎂💖💖💖❤️❤️🤩🤩</p>
+        <p>❤️❤️💖💖💖💖🥰🥰🥰😘😘🎂🎂🎂🎂🎂🎂🎂🥳🥳🥳🥳🥳🥳🥳🥳🥳</p>
+        <p>happy happy happy birthday 🥳🥳🥳🥳🥳🥳🥳🥳</p>
+
+        <div class="emoji-container">
+            <p> তুমি যদি এই গিফট পছন্দ করো, তাহলে লাইক করো।</p>
+            <button class="emoji-btn like-btn" onclick="showEmoji('😊')">Like 👍</button>
+
+            <p> তুমি যদি এই গিফট পছন্দ না করো, তাহলে ডিসলাইক করো।</p>
+            <button class="emoji-btn dislike-btn" onclick="showEmoji('😢')">Dislike 👎</button>
+        </div>
+    </div>
+
+    <!-- Love Animation -->
+    <div class="love-container" id="loveContainer"></div>
+
+    <script>
+        document.getElementById("giftBox").addEventListener("click", function() {
+            let giftBox = document.querySelector(".gift-box");
+            let lid = document.querySelector(".gift-lid");
+            lid.style.transform = "rotateX(180deg)";
+            lid.style.transition = "0.8s ease-in-out";
+
+            setTimeout(() => {
+                giftBox.style.animation = "openGift 1s ease-in-out forwards";
+                setTimeout(() => {
+                    document.querySelector(".container").style.display = "none";
+                    document.getElementById("message").style.display = "block";
+                    startLoveAnimation();
+                    setTimeout(() => { window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }, 500);
+                }, 1000);
+            }, 500);
+        });
+
+        function showEmoji(emoji) {
+            let emojiElement = document.createElement("div");
+            emojiElement.classList.add("emoji");
+            emojiElement.innerHTML = emoji;
+            document.body.appendChild(emojiElement);
+            setTimeout(() => {
+                emojiElement.remove();
+            }, 1000);
+        }
+
+        function startLoveAnimation() {
+            setInterval(() => {
+                let love = document.createElement("div");
+                love.classList.add("love");
+                love.innerHTML = "❤️";
+                love.style.left = Math.random() * window.innerWidth + "px";
+                document.getElementById("loveContainer").appendChild(love);
+                setTimeout(() => { love.remove(); }, 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
