@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JARVIS AR Hand System</title>
+<style>
+body{margin:0;overflow:hidden;background:black;}
+video{position:absolute;opacity:0;}
+canvas{position:absolute;top:0;left:0;}
+#hud{
+ position:absolute;
+ width:300px;height:300px;
+ border:2px solid cyan;
+ border-radius:50%;
+ top:50%;left:50%;
+ transform:translate(-50%,-50%);
+ box-shadow:0 0 40px cyan;
+ animation:spin 8s linear infinite;
+}
+@keyframes spin{
+ from{transform:translate(-50%,-50%) rotate(0deg);}
+ to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+.scan{
+ position:absolute;
+ width:100%;height:2px;
+ background:red;
+ animation:scan 2s infinite;
+}
+@keyframes scan{
+ 0%{top:0;}
+ 100%{top:100%;}
+}
+</style>
+</head>
+<body>
+
+<div id="hud"><div class="scan"></div></div>
+<video id="video" autoplay playsinline></video>
+<canvas id="out"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<script>
+const video=document.getElementById("video");
+const canvas=document.getElementById("out");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+const ctx=canvas.getContext("2d");
+
+// Back camera
+navigator.mediaDevices.getUserMedia({
+ video:{facingMode:"environment"}
+}).then(s=>video.srcObject=s);
+
+// Three.js hologram
+const scene=new THREE.Scene();
+const cam3=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({alpha:true});
+renderer.setSize(innerWidth,innerHeight);
+document.body.appendChild(renderer.domElement);
+cam3.position.z=6;
+
+const light=new THREE.PointLight(0x00ffff,2,50);
+scene.add(light);
+
+const holoMat=new THREE.MeshStandardMaterial({
+ color:0x00ffff,
+ emissive:0x00ffff,
+ emissiveIntensity:0.8,
+ transparent:true,
+ opacity:0.8
+});
+
+const hands=new Hands({
+ locateFile:f=>`https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`
+});
+hands.setOptions({
+ maxNumHands:1,
+ minDetectionConfidence:0.7,
+ minTrackingConfidence:0.7
+});
+
+hands.onResults(res=>{
+ if(res.multiHandLandmarks){
+  const p=res.multiHandLandmarks[0][8];
+  const x=(p.x-0.5)*10;
+  const y=-(p.y-0.5)*10;
+
+  const cube=new THREE.Mesh(
+    new THREE.BoxGeometry(0.4,0.4,0.4),
+    holoMat
+  );
+  cube.position.set(x,y,0);
+  scene.add(cube);
+ }
+});
+
+const cam=new Camera(video,{
+ onFrame:async()=>hands.send({image:video}),
+ width:640,height:480
+});
+cam.start();
+
+function animate(){
+ requestAnimationFrame(animate);
+ renderer.render(scene,cam3);
+}
+animate();
+</script>
+</body>
+</html>
